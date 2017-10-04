@@ -1,3 +1,4 @@
 import * as b from 'bobril';
+import { App } from './src/app';
 
-b.init(() => 'init');
+b.init(() => App());
