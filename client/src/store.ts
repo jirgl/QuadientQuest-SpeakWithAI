@@ -1,7 +1,8 @@
 import * as b from 'bobril';
 import { observable } from 'bobx';
 import { subscriptionKey } from './settings';
-import { initialize, IRecognizer } from '../lib/speechApi';
+import { initialize, IRecognizer } from '../lib/speechToTextApi';
+import { speech as textToSpeech } from '../lib/textToSpeechApi';
 
 class Store {
     @observable private _userText: string;
@@ -30,6 +31,10 @@ class Store {
         this._isUserSpeaking = true;
         this._userText = this.palceholder;
         this.recognizer.recognize(this.setUserText, this.saveNewItem);
+    }
+
+    speech = (item: string) => {
+        textToSpeech(item);
     }
 
     private setUserText = (text: string) => {

@@ -25,7 +25,12 @@ export const App = b.createComponent<IAppData>({
                     startRecognition: store.createNewItem
                 }),
                 TodoList({
-                    items: store.items
+                    items: store.items.map(item => {
+                        return {
+                            content: item,
+                            speak: () => store.speech(item)
+                        }
+                    })
                 })
             ]
         );

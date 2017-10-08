@@ -1,12 +1,10 @@
 import * as b from 'bobril';
-import { TodoItem } from './item';
+import { TodoItem, ITodoItemData } from './item';
 
 export interface ITodoListData {
-    items: string[];
+    items: ITodoItemData[];
 }
 
 export function TodoList(data: ITodoListData): b.IBobrilNode[] {
-    return data.items.map(item => TodoItem({
-        content: item
-    }));
+    return data.items.map(item => TodoItem(item));
 }
