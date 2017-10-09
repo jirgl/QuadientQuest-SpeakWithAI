@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bobril": {
+    "title": "My To-Do"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +14,6 @@
   "dependencies": {
     "bobril": "^7.6.3",
     "bobril-m": "^0.11.0",
-    "bobx": "^0.12.0"
+    "bobx": "^0.12.1"
   }
 }

@@ -1,7 +1,7 @@
 import * as b from 'bobril';
 import { Paper } from 'bobril-m';
-import { Header } from './header/header';
-import { TodoList } from './todo/list';
+import { Header } from './components/header/header';
+import { TodoList } from './components/todo/list';
 import { store } from './store';
 
 export interface IAppData { }
@@ -27,8 +27,11 @@ export const App = b.createComponent<IAppData>({
                 TodoList({
                     items: store.items.map(item => {
                         return {
-                            content: item,
-                            speak: () => store.speech(item)
+                            content: item.label,
+                            isDone: item.isDone,
+                            speak: () => store.speech(item.id),
+                            markAsDone: () => store.markAsDone(item.id),
+                            remove: () => store.remove(item.id)
                         }
                     })
                 })
