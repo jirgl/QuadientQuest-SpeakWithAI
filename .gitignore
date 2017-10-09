@@ -3,3 +3,5 @@ client/node_modules/
 client/tsconfig.json
 client/yarn.lock
 client/src/settings.ts
+server/dist/
+settings.json
