@@ -13,10 +13,10 @@ class Store {
     private idCounter = 0;
 
     constructor() {
-        api.getSubscription().then(subscription => {
+        api.getSubscription(subscription => {
             this.recognizer = initialize(subscription.key);
         });
-        api.getTodos().then(todos => {
+        api.getTodos(todos => {
             todos.forEach(todo => {
                 this._items.set(todo.id, todo);
             });

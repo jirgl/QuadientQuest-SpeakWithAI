@@ -18,14 +18,14 @@ export function updateTodo(todo: ITodo) {
     callPost('/updateTodo', todo);
 }
 
-export function getTodos(): Promise<ITodo[]> {
-    return callGet('/getTodos');
+export function getTodos(onLoad: (data: ITodo[]) => void) {
+    return callGet('/getTodos', onLoad);
 }
 
 export function removeTodo(todoId: number) {
     callPost('/removeTodo', { id: todoId });
 }
 
-export function getSubscription(): Promise<ISubscription> {
-    return callGet('/subscription');
+export function getSubscription(onLoad: (data: ISubscription) => void) {
+    return callGet('/subscription', onLoad);
 }
