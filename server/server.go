@@ -22,7 +22,7 @@ func Run(subscriptionKey string) {
 	if isBobrilBuildRunning() {
 		http.HandleFunc("/", handleByBobrilBuild)
 	} else {
-		fs := http.FileServer(http.Dir(directory + "/dist"))
+		fs := http.FileServer(http.Dir(directory + "/client/dist"))
 		http.Handle("/", fs)
 	}
 
