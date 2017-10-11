@@ -1,4 +1,4 @@
-## Quadient Quest - Speek With AI
+## Quadient Quest - Speak With AI
 
 ### Prerequisites
 
