@@ -5,3 +5,5 @@ client/yarn.lock
 client/src/settings.ts
 server/dist/
 settings.json
+.vscode/launch.json
+quadient-quest-speek-with-ai

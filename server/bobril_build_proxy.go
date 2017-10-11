@@ -8,25 +8,21 @@ import (
 const bobrilBuildBasePath = "http://localhost:8080"
 
 func isBobrilBuildRunning() bool {
-	_, err := http.Get(bobrilBuildBasePath)
-	if err != nil {
-		return false
+	if _, err := http.Get(bobrilBuildBasePath); err == nil {
+		return true
 	}
 
-	return true
+	return false
 }
 
 func handleByBobrilBuild(w http.ResponseWriter, r *http.Request) {
-	resp, err := http.Get(bobrilBuildBasePath + r.RequestURI)
-	if err != nil {
-		return
+	if resp, err := http.Get(bobrilBuildBasePath + r.RequestURI); err == nil {
+		defer resp.Body.Close()
+
+		for k, v := range resp.Header {
+			w.Header().Set(k, v[0])
+		}
+
+		io.Copy(w, resp.Body)
 	}
-
-	defer resp.Body.Close()
-
-	for k, v := range resp.Header {
-		w.Header().Set(k, v[0])
-	}
-
-	io.Copy(w, resp.Body)
 }

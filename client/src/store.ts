@@ -20,6 +20,7 @@ class Store {
             todos.forEach(todo => {
                 this._items.set(todo.id, todo);
             });
+            this.idCounter = todos.length;
         });
     }
 

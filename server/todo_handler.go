@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -17,8 +16,7 @@ var inMemoryTodos = map[int]*todo{}
 func parseRequest(r *http.Request) *todo {
 	decoder := json.NewDecoder(r.Body)
 	var todo todo
-	err := decoder.Decode(&todo)
-	if err != nil {
+	if err := decoder.Decode(&todo); err != nil {
 		return nil
 	}
 
@@ -26,12 +24,9 @@ func parseRequest(r *http.Request) *todo {
 }
 
 func addOrUpdateTodo(w http.ResponseWriter, r *http.Request) {
-	todo := parseRequest(r)
-	if todo == nil {
-		return
+	if todo := parseRequest(r); todo != nil {
+		inMemoryTodos[todo.ID] = todo
 	}
-
-	inMemoryTodos[todo.ID] = todo
 }
 
 func getTodos(w http.ResponseWriter, r *http.Request) {
@@ -40,20 +35,13 @@ func getTodos(w http.ResponseWriter, r *http.Request) {
 		todos = append(todos, *todo)
 	}
 
-	bytes, err := json.Marshal(&todos)
-	if err != nil {
-		return
+	if bytes, err := json.Marshal(&todos); err == nil {
+		w.Write(bytes)
 	}
-
-	fmt.Println(todos)
-	w.Write(bytes)
 }
 
 func removeTodo(w http.ResponseWriter, r *http.Request) {
-	todo := parseRequest(r)
-	if todo == nil {
-		return
+	if todo := parseRequest(r); todo != nil {
+		delete(inMemoryTodos, todo.ID)
 	}
-
-	delete(inMemoryTodos, todo.ID)
 }

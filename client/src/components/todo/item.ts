@@ -19,6 +19,7 @@ function createText(text: string, isDone: boolean): b.IBobrilNode {
     }), {
             display: 'inline-block',
             position: 'relative',
+            width: '60%'
         }
     );
 }

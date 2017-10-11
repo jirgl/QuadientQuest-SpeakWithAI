@@ -12,7 +12,7 @@ type subscription struct {
 	Key string `json:"key"`
 }
 
-//Run launches http server
+//Run func launches http server
 func Run(subscriptionKey string) {
 	directory, err := os.Getwd()
 	if err != nil {
@@ -22,7 +22,7 @@ func Run(subscriptionKey string) {
 	if isBobrilBuildRunning() {
 		http.HandleFunc("/", handleByBobrilBuild)
 	} else {
-		fs := http.FileServer(http.Dir(directory + "/server/dist"))
+		fs := http.FileServer(http.Dir(directory + "/dist"))
 		http.Handle("/", fs)
 	}
 
@@ -31,13 +31,9 @@ func Run(subscriptionKey string) {
 	http.HandleFunc("/api/getTodos", getTodos)
 	http.HandleFunc("/api/removeTodo", removeTodo)
 	http.HandleFunc("/api/subscription", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(subscriptionKey)
-		bytes, err := json.Marshal(&subscription{Key: subscriptionKey})
-		if err != nil {
-			return
+		if bytes, err := json.Marshal(&subscription{Key: subscriptionKey}); err == nil {
+			w.Write(bytes)
 		}
-		fmt.Println(subscriptionKey)
-		w.Write(bytes)
 	})
 	fmt.Println("Server is running at http://localhost:3000")
 	http.ListenAndServe(":3000", nil)
